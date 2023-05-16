@@ -33,11 +33,19 @@ To use this SDK you need to have account in PushPushGo Core! and token to author
 npm i @pushpushgo/core-sdk-js
 ```
 
-### How to use as modules?
+### How to use as modules in backend?
 ```
 import { PpgCoreClient as BrowserClient } from "@pushpushgo/core-sdk-js/browser/client";
 import { Worker } from "@pushpushgo/core-sdk-js/browser/worker";
 import { PpgCoreClient as ServerClient } from "@pushpushgo/core-sdk-js/server/client";
+```
+
+### How to use as modules in browser via jsdelivr?
+```
+import { PpgCoreClient as BrowserClient } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/client/index.js"
+import { Worker } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/worker/index.js"
+import { PpgCoreClient as ServerClient  } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/server/client/index.js"
+
 ```
 
 *PushPushGo Core is not same as PushPushGo product
