@@ -2,6 +2,8 @@
 
 WIP - do not use 
 
+npmjs: https://www.npmjs.com/package/@pushpushgo/core-sdk-js
+
 This is a library for PushPushGo Core - can be used for both Browser / Client side.
 
 ## Product Info
