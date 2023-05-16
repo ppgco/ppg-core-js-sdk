@@ -1,0 +1,1 @@
+class m{constructor(e,r,n){this._contextId=e;this._internalClient=r;this._bucket=n}async sendMessages(e){return await this._internalClient.post(`/bucket/${this._bucket.getId()}/context/${this._contextId}/send`).body({receivers:e}).execute()}}export{m as Context};

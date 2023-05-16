@@ -1,0 +1,1 @@
+import{AbstractProvider as r}from"./abstract-provider.js";class i extends r{browserSupportsWebPush(){return!1}async isSubscribed(){throw new Error("browser unsupported")}async subscribe(){throw new Error("browser unsupported")}getSubscription(){throw new Error("browser unsupported")}async unsubscribe(){throw new Error("browser unsupported")}}export{i as UnsupportedProvider};
