@@ -1,4 +1,4 @@
-import { PpgCoreClient } from "./dist/browser/client/index.js";
+import { PpgCoreClient } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/client/index.js"
 
 window.addEventListener('load', () => {
 

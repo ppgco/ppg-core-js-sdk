@@ -2,7 +2,7 @@ import { PpgCoreClient } from "../module_vapid/dist/server/client/index.js";
 
 async function run() {
   const client = new PpgCoreClient({
-    endpoint: "http://localhost:3000/v1",
+    endpoint: "https://api-core.pushpushgo.com/v1",
     apiKey: "00147c96-f0e8-4b40-b57d-992fd6c9a5ce"
   });
 
