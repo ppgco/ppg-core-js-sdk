@@ -1,13 +1,14 @@
 {
-  "name": "@ppg/core-sdk-js",
+  "name": "@pushpushgo/core-sdk-js",
   "version": "0.0.1",
   "description": "PushPushGo Core SDK for JavaScript / TypeScript - browser / server",
   "license": "MIT",
   "type": "module",
+  "private": false,
   "author": "PushPushGo <support@pushpushgo.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ppgco/ppg-core-js-sdk.git"
+    "url": "https://github.com/ppgco/ppg-core-js-sdk.git"
   },
   "platform": "node",
   "engines": {
