@@ -28,4 +28,16 @@ To use this SDK you need to have account in PushPushGo Core! and token to author
  - Context builder
  - Send Data / Silent messages via API
 
-* - PushPushGo Core is not same as PushPushGo product
+### How to install?
+```
+npm i @pushpushgo/core-sdk-js
+```
+
+### How to use as modules?
+```
+import { PpgCoreClient as BrowserClient } from "@pushpushgo/core-sdk-js/browser/client";
+import { Worker } from "@pushpushgo/core-sdk-js/browser/worker";
+import { PpgCoreClient as ServerClient } from "@pushpushgo/core-sdk-js/server/client";
+```
+
+*PushPushGo Core is not same as PushPushGo product
