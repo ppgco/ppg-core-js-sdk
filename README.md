@@ -2,6 +2,11 @@
 
 WIP - do not use 
 
+![npmjs version](https://img.shields.io/npm/v/@pushpushgo/core-sdk-js?style=flat-square)
+![GitHub Workflow Status (main)](https://img.shields.io/github/actions/workflow/status/ppgco/ppg-core-js-sdk/publish.yml?branch=main&style=flat-square)
+![GitHub tag (latest)](https://img.shields.io/github/v/tag/ppgco/ppg-core-js-sdk?style=flat-square)
+![Discord](https://img.shields.io/discord/XXXXXXXXXXXXXXXXXXXXXX?color=%237289DA&label=Discord&style=flat-square)
+
 npmjs: https://www.npmjs.com/package/@pushpushgo/core-sdk-js
 
 This is a library for PushPushGo Core - can be used for both Browser / Client side.
