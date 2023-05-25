@@ -64,7 +64,7 @@ To use this SDK you need to have account in PushPushGo Core! and token to author
 This package contains two modules "client" and "server".
 
 ClientSDK is for requesting push notifications
-ServerSDK is for sending push notifications via PushPushGo Core API ([Discord](https://linkto.swagger.pushushgo.com))
+ServerSDK is for sending push notifications via PushPushGo Core API [Swagger](https://linkto.swagger.pushushgo.com)
 
 
 ## Client SDK:
