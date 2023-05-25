@@ -16,7 +16,7 @@ window.addEventListener('load', () => {
       scope: '/',
       swPath: '/worker.js',
       userVisibleOnly: true,
-      // Here you need to use your Vapid Keys generated see README.md
+      // Here you need to use your Vapid Keys generated see main repository README.md
       applicationServerKey: "BMLa3ig2yYnIv-TcpqiShHjy8mRjGFt2vPq-AHEx4ARGen-g8_GfF5ybpqVeXy_zdaEUxYEz1kF1IsLwyIHmP2w"
     })
     .build();

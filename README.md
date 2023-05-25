@@ -91,7 +91,7 @@ Server SDK covers:
 Server and client version is in one package and available via esm module. Module can be used on browser and server side. 
 
 ```bash
-$ npm i @pushpushgo/core-sdk-js
+$ yarn add @pushpushgo/core-sdk-js
 ```
 
 ### How to use as modules in backend?
@@ -119,7 +119,8 @@ Full example how to subscribe for notifications in directory [browser bundle exa
 
 ### How to generate vapid keys to configure Client SDK?
 ```bash
-$ curl -X GET https://api-core.pushpushgo.com/v1/vapid/generate 
+$ yarn global add web-push
+$ web-push generate-vapid-keys
 ```
 
 ##### Important!
