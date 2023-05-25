@@ -6,14 +6,6 @@ window.addEventListener('load', () => {
   const state = document.querySelector("#state");
   const subscribe = document.querySelector("#subscribe");
   const unsubscribe = document.querySelector("#unsubscribe");
-  const send = document.querySelector("#send");
-
-  send.addEventListener('click', () => {
-    if (subscription) {
-      // Trigger send via API
-      sendViaServerSDK(subscription)
-    }
-  })
 
   const ppgClient = PpgCoreClient
     .builder()

@@ -1,4 +1,4 @@
-import { PpgCoreClient } from "../module_vapid/dist/server/client/index.js";
+import { PpgCoreClient } from "@pushpushgo/core-sdk-js/server/client";
 
 async function run() {
   const client = new PpgCoreClient({
