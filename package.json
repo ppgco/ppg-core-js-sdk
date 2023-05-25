@@ -1,6 +1,6 @@
 {
   "name": "@pushpushgo/core-sdk-js",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "PushPushGo Core SDK for JavaScript / TypeScript - browser / server",
   "license": "MIT",
   "type": "module",
