@@ -24,9 +24,38 @@ Contact: support+core@pushpushgo.com or [Discord](https://discord.gg/NVpUWvreZa)
 
 ## How it works
 
-Architecture information
-Webhook infromation and example?
+IMAGE HERE
 
+When you send to our API request to send message we prepare images and then talk to different providers. 
+
+When message is delieverd on device and interacts with user we collect events and pass to our API.
+
+After while on your webhook you got package with events:
+
+```json
+{
+    "messages": [
+        {
+            "messageId": "8e3075f1-6b21-425a-bb4f-eeaf0eac93a2",
+            "foreignId": "my_id",
+            "result": {
+                "kind": "sent"
+            },
+            "ts": 1685009020243
+        },
+        {
+            "messageId": "8e3075f1-6b21-425a-bb4f-eeaf0eac93a2",
+            "foreignId": "my_id",
+            "result": {
+                "kind": "delivered"
+            },
+            "ts": 1685009020564
+        }
+    ]
+}
+```
+
+And you can calculate statistics or do some of your business logic.
 
 # SDK
 
@@ -94,6 +123,9 @@ $ curl -X GET https://api-core.pushpushgo.com/v1/vapid/generate
 
 ##### Important!
 Store this keys! 
+
 You need to do this action only once per one website. 
+
 This keys will be associated with your subscriptions and to encrypt your requests to providers.
+
 In SDK provide only publicKey, privateKey is for sender.
