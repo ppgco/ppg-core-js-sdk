@@ -1,7 +1,7 @@
 import {assertUnreachable} from "../../utils/assertUnreachable";
 
 interface PpgCoreWorkerOptions {
-	endpoint: string;
+	endpoint?: string;
 	onSubscriptionChange: OnSubscriptionChangeConfig
 }
 
@@ -40,6 +40,8 @@ export class Worker {
 		private readonly options: PpgCoreWorkerOptions
 	) {
 		
+		this.options.endpoint = this.options.endpoint || "https://api-core.pushpushgo.com/v1";
+
 		this.options.onSubscriptionChange = {
 			endpoint: this.options.onSubscriptionChange.endpoint || assertUnreachable("options.onSubscriptionChangeConfig.endpoint is required"),
 			headers: this.options.onSubscriptionChange.headers || {}

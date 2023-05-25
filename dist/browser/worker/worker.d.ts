@@ -1,5 +1,5 @@
 interface PpgCoreWorkerOptions {
-    endpoint: string;
+    endpoint?: string;
     onSubscriptionChange: OnSubscriptionChangeConfig;
 }
 export interface PpgCoreNotificationEvent {

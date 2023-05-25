@@ -11,44 +11,89 @@ This is a library for PushPushGo Core - can be used for both Browser / Client si
 
 ## Product Info
 
-PushPushGo Core* is a building blocks for:
- - sender for push notifications - we handle batch requests, aggregate response events and inform your webhook
- - serve and transform images - we handle, crop and serve your push images
- - fast implementation - we cover Android, iOS, Web with notifications support
+PushPushGo Core* is a building blocks for push notifications:
+ - sender for push notifications - we handle batch requests, aggregate feedback events and inform your webhook
+ - images storage & traffic - we handle, crop and serve your push images
+ - fast implementation - we cover Android, iOS, Web with push notifications support
+ - you own your database and credentials - no vendor lock-in - we provide infrastructure, sdk & support
+ - simple API - we provide one API for all providers
 
-Contact: support@pushpushgo.com
+Contact: support+core@pushpushgo.com or [Discord](https://discord.gg/NVpUWvreZa)
 
-To use this SDK you need to have account in PushPushGo Core! and token to authorize your requests
+<sub>PushPushGo Core is not same as PushPushGo product - if you are looking for [PushPushGo - Push Notifications Management Platform](https://pushpushgo.com)</sub>
 
-## SDK Details
+## How it works
 
-### Client SDK contains:
- - Base Service Worker implementation for Push Notifications
- - Client for registering Service Worker and manage Subscription
+Architecture information
+Webhook infromation and example?
 
-### Server SDK contains:
+
+# SDK
+
+To use this SDK you need to have account in PushPushGo Core! and token to authorize your requests.
+
+This package contains two modules "client" and "server".
+
+ClientSDK is for requesting push notifications
+ServerSDK is for sending push notifications via PushPushGo Core API ([Discord](https://linkto.swagger.pushushgo.com))
+
+
+## Client SDK:
+ - Service Worker implementation for Push Notifications
+ - Client for registering Service Worker and manage Subscription (Receiver)
+
+## Server SDK:
+Definitions vocabulary:
+
+ - Bucket - it's a configuration (credentials to providers) - once created can be used 24 hours with it's reference. We implement buckets because of traffic and performance. Once you send to us credentials to providers you can reuse this for multiple "campaigns".
+
+ - Context - it's a configuration of content and behaviour of notification. It can be also reusable (in case when you want to send "campaign" to multiple receivers)
+
+ - Receiver - it's a "subscription" what you get from our sdk.
+
+Server SDK covers:
  - Bucket builder
  - Context builder
- - Send Data / Silent messages via API
+ - Send Data / Silent / Transactional messages
 
 ### How to install?
-```
-npm i @pushpushgo/core-sdk-js
+
+Server and client version is in one package and available via esm module. Module can be used on browser and server side. 
+
+```bash
+$ npm i @pushpushgo/core-sdk-js
 ```
 
 ### How to use as modules in backend?
-```
-import { PpgCoreClient as BrowserClient } from "@pushpushgo/core-sdk-js/browser/client";
+```typescript
 import { Worker } from "@pushpushgo/core-sdk-js/browser/worker";
-import { PpgCoreClient as ServerClient } from "@pushpushgo/core-sdk-js/server/client";
+import { PpgCoreClient} from "@pushpushgo/core-sdk-js/server/client";
 ```
+
+Full example how to send notifications in directory [server sender example](/examples/sender/)
 
 ### How to use as modules in browser via jsdelivr?
-```
-import { PpgCoreClient as BrowserClient } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/client/index.js"
+```typescript
+import { PpgCoreClient } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/client/index.js"
 import { Worker } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/worker/index.js"
-import { PpgCoreClient as ServerClient  } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/server/client/index.js"
-
 ```
 
-*PushPushGo Core is not same as PushPushGo product
+Full example how to subscribe for notifications in directory [browser jsdelivr example](/examples/browser/jsdelivr/)
+
+### How to use with bundlers (tsc, webpack, parcel, etc)
+
+This package should compile well with all bundlers.
+If you have any issues please give us feedback in Issues section.
+
+Full example how to subscribe for notifications in directory [browser bundle example](/examples/browser/bundled/)
+
+### How to generate vapid keys to configure Client SDK?
+```bash
+$ curl -X GET https://api-core.pushpushgo.com/v1/vapid/generate 
+```
+
+##### Important!
+Store this keys! 
+You need to do this action only once per one website. 
+This keys will be associated with your subscriptions and to encrypt your requests to providers.
+In SDK provide only publicKey, privateKey is for sender.

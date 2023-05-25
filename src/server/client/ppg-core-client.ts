@@ -7,7 +7,7 @@ import { SubscriptionType } from "./interfaces/receiver";
 type ApiKey = string;
 
 interface ClientConfig {
-	endpoint: Url;
+	endpoint?: Url;
 	apiKey?: ApiKey;
 }
 
@@ -30,6 +30,7 @@ export class PpgCoreClient {
 	private readonly _internalClient: InternalClient;
 
 	constructor(config: ClientConfig) {
+		config.endpoint = config.endpoint || "https://api-core.pushpushgo.com/v1";
 		this._internalClient = new InternalClient(config.endpoint, config.apiKey);
 	}
 

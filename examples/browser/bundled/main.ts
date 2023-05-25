@@ -1,10 +1,14 @@
-import { PpgCoreClient } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/client/index.js"
+import { PpgCoreClient } from "@pushpushgo/core-sdk-js/dist/browser/client"
 
 window.addEventListener('load', () => {
 
-  const state = document.querySelector("#state");
-  const subscribe = document.querySelector("#subscribe");
-  const unsubscribe = document.querySelector("#unsubscribe");
+  const state = document.querySelector("#state") as HTMLElement;
+  const subscribe = document.querySelector("#subscribe") as HTMLElement;
+  const unsubscribe = document.querySelector("#unsubscribe") as HTMLElement;
+
+  if (!state || !subscribe || !unsubscribe) {
+    throw new Error('Bad selectors')
+  }
 
   const ppgClient = PpgCoreClient
     .builder()
@@ -12,6 +16,7 @@ window.addEventListener('load', () => {
       scope: '/',
       swPath: '/worker.js',
       userVisibleOnly: true,
+      // Here you need to use your Vapid Keys generated see README.md
       applicationServerKey: "BMLa3ig2yYnIv-TcpqiShHjy8mRjGFt2vPq-AHEx4ARGen-g8_GfF5ybpqVeXy_zdaEUxYEz1kF1IsLwyIHmP2w"
     })
     .build();

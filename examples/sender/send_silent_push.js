@@ -2,7 +2,8 @@ import { PpgCoreClient } from "../module_vapid/dist/server/client/index.js";
 
 async function run() {
   const client = new PpgCoreClient({
-    endpoint: "https://api-core.pushpushgo.com/v1",
+    // TODO: Remove endpoint from example - this is "preview deployment" not for production usage.
+    endpoint: "https://ppg-core.master1.qappg.co/v1",
     apiKey: "00147c96-f0e8-4b40-b57d-992fd6c9a5ce"
   });
 
