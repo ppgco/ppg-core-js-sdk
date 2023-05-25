@@ -13,12 +13,12 @@ $ yarn build
 ```
 
 Serve files via live-server and open browser to check
-Open developer tools (you will see subscription in console)
+developer tools (you will see subscription in console)
 ```bash
 $ yarn serve
 ```
 
-In console you will see sth like:
+In console you will see something like:
 
 ```json
 {

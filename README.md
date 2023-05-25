@@ -11,7 +11,7 @@ This is a library for PushPushGo Core - can be used for both Browser / Client si
 
 ## Product Info
 
-PushPushGo Core* is a building blocks for push notifications:
+PushPushGo Core* is a building block for push notifications:
  - sender for push notifications - we handle batch requests, aggregate feedback events and inform your webhook
  - images storage & traffic - we handle, crop and serve your push images
  - fast implementation - we cover Android, iOS, Web with push notifications support
@@ -20,17 +20,17 @@ PushPushGo Core* is a building blocks for push notifications:
 
 Contact: support+core@pushpushgo.com or [Discord](https://discord.gg/NVpUWvreZa)
 
-<sub>PushPushGo Core is not same as PushPushGo product - if you are looking for [PushPushGo - Push Notifications Management Platform](https://pushpushgo.com)</sub>
+<sub>PushPushGo Core is not the same as PushPushGo product - if you are looking for [PushPushGo - Push Notifications Management Platform](https://pushpushgo.com)</sub>
 
 ## How it works
 
 IMAGE HERE
 
-When you send to our API request to send message we prepare images and then talk to different providers. 
+When you send request to our API to send message, we prepare images and then connect to different providers. 
 
-When message is delieverd on device and interacts with user we collect events and pass to our API.
+When message is delieverd to the device and interacts with user, we collect events and pass them to our API.
 
-After while on your webhook you got package with events:
+After a short time you will recieve package with events on your webhook:
 
 ```json
 {
@@ -55,7 +55,7 @@ After while on your webhook you got package with events:
 }
 ```
 
-And you can calculate statistics or do some of your business logic.
+Using that data you can calculate statistics or do some of your business logic.
 
 # SDK
 
@@ -63,7 +63,8 @@ To use this SDK you need to have account in PushPushGo Core! and token to author
 
 This package contains two modules "client" and "server".
 
-ClientSDK is for requesting push notifications
+ClientSDK is for requesting push notifications.
+
 ServerSDK is for sending push notifications via PushPushGo Core API [Swagger](https://linkto.swagger.pushushgo.com)
 
 
@@ -72,13 +73,13 @@ ServerSDK is for sending push notifications via PushPushGo Core API [Swagger](ht
  - Client for registering Service Worker and manage Subscription (Receiver)
 
 ## Server SDK:
-Definitions vocabulary:
+Definitions of vocabulary:
 
  - Bucket - it's a configuration (credentials to providers) - once created can be used 24 hours with it's reference. We implement buckets because of traffic and performance. Once you send to us credentials to providers you can reuse this for multiple "campaigns".
 
- - Context - it's a configuration of content and behaviour of notification. It can be also reusable (in case when you want to send "campaign" to multiple receivers)
+ - Context - it's a configuration of content and behaviour of notification. It can also be reusable (in case when you want to send "campaign" to multiple receivers)
 
- - Receiver - it's a "subscription" what you get from our sdk.
+ - Receiver - it's a "subscription" that you get from our sdk.
 
 Server SDK covers:
  - Bucket builder
