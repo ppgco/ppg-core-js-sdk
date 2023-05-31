@@ -131,3 +131,6 @@ You need to do this action only once per one website.
 This keys will be associated with your subscriptions and to encrypt your requests to providers.
 
 In SDK provide only publicKey, privateKey is for sender.
+
+# Support & production run
+If you need production credentials or just help with integration please visit us in [discord](https://discord.gg/NVpUWvreZa) or just mail to [support@pushpushgo.com](mailto:support@pushpushgo.com)
