@@ -40,9 +40,7 @@ async function run() {
       "p256dh": "BIIwKdd5QUNCEfcB7a8HXHXWt2UHdCqAF8zwLp-RZVjgQSZZAiXS5jKVXPafCC0VtRnlrtABwnePZpAxML-iZWk",
       "auth": "AGVMtdybGTNy9oV04FJiOQ",
       "endpoint": "https://web.push.apple.com/QORAQ85NCsx1bRVjDhr-tWjJRpVBYc12zZbCtvPdgTFmqiG5DCGDOgN0JM_EpBOeqhAKEnEYn3468dQg5SoDUicnhOvoVQLmyC_etcPLo2BLILGeD4M3i83DsMbeDvxjq5ETj8OQSz9-im9hj3j56rmbe5sxRVdH15BOYIEB1sk",
-      "publicKey": "BMLa3ig2yYnIv-TcpqiShHjy8mRjGFt2vPq-AHEx4ARGen-g8_GfF5ybpqVeXy_zdaEUxYEz1kF1IsLwyIHmP2w",
-      "expirationTime": null
-    })
+      "publicKey": "BMLa3ig2yYnIv-TcpqiShHjy8mRjGFt2vPq-AHEx4ARGen-g8_GfF5ybpqVeXy_zdaEUxYEz1kF1IsLwyIHmP2w"    })
   ]);
 
   console.log(JSON.stringify(result, null, 2));

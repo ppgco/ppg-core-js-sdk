@@ -78,7 +78,7 @@ export class PpgCoreClient {
 		switch(pc.type) {
 			case "apns_cert":
 			case "apns_token":
-				return [pc.payload.appBundleId, pc.payload.websitePushId].filter(i => i)
+				return [pc.payload.appBundleId, pc.payload.websitePushId].filter(i => i) as string[]
 			case "vapid":
 				return [pc.payload.publicKey]
 			case "fcm_legacy":
