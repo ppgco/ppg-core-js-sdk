@@ -32,7 +32,7 @@ When message is delieverd to the device and interacts with user, we collect even
 
 After a short time you will recieve package with events on your webhook:
 
-```json
+```js
 {
     "messages": [
         {
@@ -102,7 +102,7 @@ new Worker(self, {
 ```
 
 On subscription change we will inform endpoint from onSubscriptionChange with POST method and Headers from headers field with payload:
-```json
+```js
 {
     "type": "change"
     "payload": {
@@ -231,7 +231,7 @@ Available providers:
 
 #### vapid payload
 
-```json
+```js
 {
     "type": "vapid",
     "payload": {
@@ -244,7 +244,7 @@ Available providers:
 
 #### hms 
 
-```json
+```js
 {
     "type": "hms",
     "payload": {
@@ -259,7 +259,7 @@ Available providers:
 
 #### fcm_v1
 
-```json
+```js
 {
     "type": "fcm_v1",
     "payload": {
@@ -280,7 +280,7 @@ Available providers:
 
 #### fcm_legacy
 
-```json
+```js
 {
     "type": "fcm_legacy",
     "payload": {
@@ -292,7 +292,7 @@ Available providers:
 ```
 #### apns_token
 
-```json
+```js
 {
     "type": "apns_token",
     "payload": {
@@ -312,7 +312,7 @@ Available providers:
 
 #### apns_cert
 
-```json
+```js
 {
     "type": "apns_cert",
     "payload": {
