@@ -72,6 +72,93 @@ ServerSDK is for sending push notifications via PushPushGo Core API [Swagger](ht
  - Service Worker implementation for Push Notifications
  - Client for registering Service Worker and manage Subscription (Receiver)
 
+### How to use as modules in browser via jsdelivr?
+```typescript
+import { PpgCoreClient } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/client/index.js"
+import { Worker } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/worker/index.js"
+```
+
+### Worker
+
+Worker must be initialized with `ServiceWorkerGlobalScope` which is `self` in Service Worker example initialization:
+
+sw.js file example code:
+```js
+import { Worker } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/worker/index.js"
+
+new Worker(self, {
+    // Endpoint to our server default fallback to https://api-core.pushpushgo.com/v1 - optional value
+	endpoint: "", 
+    // When "subscription change was triggered" we will inform your endpoint (webhook) - can be same endpoint 
+	onSubscriptionChange: {
+        // Url to your endpoint that will receive this information
+        endpoint: "" 
+	    headers: {
+             // Custom headers
+            "Some": "Header",
+        }
+    } 
+})
+```
+
+On subscription change we will inform endpoint from onSubscriptionChange with POST method and Headers from headers field with payload:
+```json
+{
+	"type": "change"
+	"payload": {
+		"oldSubscription": {
+            "endpoint": "",
+            "expirationTime": 0,
+            "keys": {
+                "p256dh": "",
+                "auth": "",
+            }
+        },
+		"newSubscription": {
+            "endpoint": "",
+            "expirationTime": 0,
+            "keys": {
+                "p256dh": "",
+                "auth": "",
+            }
+        }
+	}    
+}
+```
+
+### Client Browser - Subscribe to nofications
+
+```js
+const ppgClient = PpgCoreClient
+.builder()
+.setVapidSupport({
+    // Set scope - root scope preferred
+    scope: '/',
+    // Set path of service worker module file
+    swPath: '/worker.js',
+    // Service worker parameters
+    userVisibleOnly: true,
+    // Public Vapid Key
+    applicationServerKey: "BMLa3ig2yYnIv-TcpqiShHjy8mRjGFt2vPq-AHEx4ARGen-g8_GfF5ybpqVeXy_zdaEUxYEz1kF1IsLwyIHmP2w"
+})
+.build();
+
+```
+
+Client contains method:
+
+```js
+  browserSupportsWebPush(): boolean;
+  isSubscribed(): Promise<boolean>;
+  // prompt for allow notifications if accept then you will get subscription - store this in you database for future sending
+  subscribe(): Promise<object>; 
+  // returns actual subscription
+  getSubscription(): Promise<null | object>; 
+  unsubscribe(): Promise<boolean>;
+```
+
+Full example how to subscribe for notifications in directory [browser jsdelivr example](/examples/browser/jsdelivr/)
+
 ## Server SDK:
 Definitions of vocabulary:
 
@@ -100,15 +187,7 @@ import { Worker } from "@pushpushgo/core-sdk-js/browser/worker";
 import { PpgCoreClient} from "@pushpushgo/core-sdk-js/server/client";
 ```
 
-Full example how to send notifications in directory [server sender example](/examples/sender/)
-
-### How to use as modules in browser via jsdelivr?
-```typescript
-import { PpgCoreClient } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/client/index.js"
-import { Worker } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/worker/index.js"
-```
-
-#### Server client
+### Server client
 
 Server client may be used to create bucket, context, and send notifications
 
@@ -332,55 +411,7 @@ const result = await dataContext.sendMessages([
 
 ```
 
-#### Worker
-
-Worker must be initialized with `ServiceWorkerGlobalScope` which is `self` in Service Worker example initialization:
-
-sw.js file example code:
-```js
-import { Worker } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/worker/index.js"
-
-new Worker(self, {
-    // Endpoint to our server default fallback to https://api-core.pushpushgo.com/v1 - optional value
-	endpoint: "", 
-    // When "subscription change was triggered" we will inform your endpoint (webhook) - can be same endpoint 
-	onSubscriptionChange: {
-        // Url to your endpoint that will receive this information
-        endpoint: "" 
-	    headers: {
-             // Custom headers
-            "Some": "Header",
-        }
-    } 
-})
-```
-
-On subscription change we will inform endpoint from onSubscriptionChange with POST method and Headers from headers field with payload:
-```json
-{
-	"type": "change"
-	"payload": {
-		"oldSubscription": {
-            "endpoint": "",
-            "expirationTime": 0,
-            "keys": {
-                "p256dh": "",
-                "auth": "",
-            }
-        },
-		"newSubscription": {
-            "endpoint": "",
-            "expirationTime": 0,
-            "keys": {
-                "p256dh": "",
-                "auth": "",
-            }
-        }
-	}    
-}
-```
-
-Full example how to subscribe for notifications in directory [browser jsdelivr example](/examples/browser/jsdelivr/)
+Full example how to send notifications in directory [server sender example](/examples/sender/)
 
 ### How to use with bundlers (tsc, webpack, parcel, etc)
 
