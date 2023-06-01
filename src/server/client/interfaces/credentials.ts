@@ -21,33 +21,33 @@ export interface HmsCredentialConfig {
 	type: "hms";
 	payload: {
 		appId: string,
-        appSecret: string,
-        pushUrl: string,
-        authUrl: string,
+		appSecret: string,
+		pushUrl: string,
+		authUrl: string,
 	}
 }
 
 export interface FcmV1CredentialConfig {
 	type: "fcm_v1";
 	payload: {
-        type: string;
-        project_id: string;
-        private_key_id: string;
-        private_key: string;
-        client_email: string;
-        client_id: string;
-        auth_uri: string;
-        token_uri: string;
-        auth_provider_x509_cert_url: string;
-        client_x509_cert_url: string;
+		type: string;
+		project_id: string;
+		private_key_id: string;
+		private_key: string;
+		client_email: string;
+		client_id: string;
+		auth_uri: string;
+		token_uri: string;
+		auth_provider_x509_cert_url: string;
+		client_x509_cert_url: string;
 	}
 }
 
 export interface FcmLegacyCredentialConfig {
 	type: "fcm_legacy";
 	payload: {
-        senderId: string;
-        authorizationKey: string;
+		senderId: string;
+		authorizationKey: string;
 	};
 }
 
@@ -76,7 +76,7 @@ export interface ApnsCertificateCredentialConfig {
 		 * @description .p12 file base64 encoded
 		 */
 		p12: string;
-        passphrase: string;
+		passphrase: string;
 		production: boolean;
 		/**
 		* @description One of depends what you want authorize mobile app or safari

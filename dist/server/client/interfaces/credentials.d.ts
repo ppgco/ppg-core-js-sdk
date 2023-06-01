@@ -1,7 +1,6 @@
 export type CredentialType = "apns_cert" | "apns_token" | "fcm_v1" | "fcm_legacy" | "vapid" | "hms";
 export type CredentialId = string;
 export type ProviderCredential = VapidCredentialConfig | HmsCredentialConfig | FcmLegacyCredentialConfig | ApnsTokenCredentialConfig | ApnsCertificateCredentialConfig | FcmV1CredentialConfig;
-
 export interface VapidCredentialConfig {
     type: "vapid";
     payload: {
