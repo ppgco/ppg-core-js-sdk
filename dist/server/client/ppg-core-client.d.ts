@@ -3,7 +3,7 @@ import { Url } from "./interfaces/common";
 import { Bucket } from "./bucket";
 type ApiKey = string;
 interface ClientConfig {
-    endpoint: Url;
+    endpoint?: Url;
     apiKey?: ApiKey;
 }
 interface HttpCallbackConfig {
