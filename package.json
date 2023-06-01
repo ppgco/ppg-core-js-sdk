@@ -23,6 +23,7 @@
     "./*": "./dist/*/index.js"
   },
   "scripts": {
+    "docs": "typedoc src/browser/client/index.ts src/browser/worker/index.ts src/server/client/index.ts",
     "dev": "tsmodule dev",
     "build": "tsmodule build",
     "pretest": "yarn build",
@@ -40,6 +41,7 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
+    "typedoc": "^0.24.7",
     "typescript": "^4.9.5"
   },
   "dependencies": {
