@@ -108,6 +108,278 @@ import { PpgCoreClient } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk
 import { Worker } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/worker/index.js"
 ```
 
+#### Server client
+
+Server client may be used to create bucket, context, and send notifications
+
+```js
+import { PpgCoreClient } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/client/index.js"
+
+// Initialize client
+const client = new PpgCoreClient({
+  // Optional field with endpoint to our service default fallback to https://api-core.pushpushgo.com/v1 use only when you want to override this param
+  endpoint: "",
+  // Api key for auth your account, to caim a production API key please contact with us (via discord, email)
+  apiKey: ""
+});
+```
+
+Client instance can create bucket. 
+Bucket contains all provider configurations that you want to use during sending session
+```js
+const bucket = await client.createBucket({
+    // You can declare multiple providers for one session
+    providers: [
+        {
+            // Provider type
+            type: "vapid" | "hms" | "fcm_v1" | "fcm_legacy" | "apns_token" | "apns_cert"
+            // Here please define providers credentials, available providers you can see in table below
+            payload: {}
+        },
+        {
+            ...
+        }
+    ],
+    // Optional - This field declare a endpoint that will receive all events gathered from our SDK clients (ios, android, js, flutter) and send aggregated bulks every 1000k or 60 seconds.
+    httpCallbackConfig: {
+        url: "https://...",
+	    headers: {}
+    },
+})
+```
+
+Available providers:
+
+#### vapid payload
+
+```json
+{
+    "type": "vapid",
+    "payload": {
+        // You previously generated vapid keys
+        "privateKey": "",
+        "publicKey": "",
+    }
+}
+```
+
+#### hms 
+
+```json
+{
+    "type": "hms",
+    "payload": {
+        // Your appId and appSecret from developer.huawei.com
+        "appId": "",
+        "appSecret": "",
+        "pushUrl" : "https://push-api.cloud.huawei.com/v1",
+        "authUrl" : "https://oauth-login.cloud.huawei.com/oauth2/v2/token"
+    }
+}
+```
+
+#### fcm_v1
+
+```json
+{
+    "type": "fcm_v1",
+    "payload": {
+        // service-account google json config
+        "type": "",
+        "project_id": "",
+        "private_key_id": "",
+        "private_key": "",
+        "client_email": "",
+        "client_id": "",
+        "auth_uri": "",
+        "token_uri": "",
+        "auth_provider_x509_cert_url": "",
+        "client_x509_cert_url": ""
+    }
+}
+```
+
+#### fcm_legacy
+
+```json
+{
+    "type": "fcm_legacy",
+    "payload": {
+        // Values from console.firebase.google.com
+        "senderId": "",
+        "authorizationKey": "",
+    }
+}
+```
+#### apns_token
+
+```json
+{
+    "type": "apns_token",
+    "payload": {
+        // You can get this from developer.apple.com
+        "teamId": "",
+        "keyId": "",
+        "key": "",
+        "production": true,
+        /**
+        * One of depends what you want authorize mobile app or safari
+        */
+        "appBundleId": "",
+        "websitePushId": "web."
+    }
+}
+```
+
+#### apns_cert
+
+```json
+{
+    "type": "apns_cert",
+    "payload": {
+        // Certificate store with p12 format (on ppg-core-ios-sdk you can see instruction for that)
+        "p12": "", // base64 encoded
+        "passphrase": "",
+        "production": true,
+        /**
+        * One of depends what you want authorize mobile app or safari
+        */
+        "appBundleId": "",
+        "websitePushId": "web."
+    }
+}
+```
+
+Now in this bucket you can create "multiple contexts"
+ - data context
+ - silent context
+
+```js
+const dataContext = await bucket.createContext({
+    title: "Hello world",
+    body: "This is my first message!"
+    
+    behaviour: "https://example.com",
+    behaviourIos: "app://com.example.ios/deep/link", // optional if not pass get from "behaviour"
+    behaviourAndroid: "app://com.example.android/deep/link", // optional if not pass get from "behaviour"
+    behaviourHuawei: "app://com.example.huawei/deep/link" // optional if not pass get from "behaviour"
+
+    smallIcon: "https://placehold.co/64",
+    icon: "https://placehold.co/256",
+    image: "https://placehold.co/768x512",
+
+    // One of 
+    expiresAt: "YYYY-MM-DDT00:00:00.000Z",
+    ttl: "3600", // seconds
+
+    badgeMobile: 1, // set badge number on app icon 
+
+    actions: [
+        { 
+            behaviour: "https://example.com/action1",
+            behaviourIos: "app://com.example.ios/deep/link/action1", // optional if not pass get from "behaviour"
+            behaviourAndroid: "app://com.example.android/deep/link/action1", // optional if not pass get from "behaviour"
+            behaviourHuawei: "app://com.example.huawei/deep/link/action1", // optional if not pass get from "behaviour"
+            behaviourWebPush: "https://example.com/action1", // optional if not pass get from "behaviour"
+
+            title: "My action",
+            icon: "https://placehold.co/64",
+            action: "action_1"
+        }
+    ]
+
+});
+
+const silentContext = await bucket.createSilentContext({
+    expiresAt: new Date(Date.now() + 3600_000).toISOString()
+});
+
+```
+
+Platform specific params table
+| Parameter          | WebPush(VAPID)| Android(FCM)  | Huawei(HMS)   | iOS (APNS)    | Safari (APNS)<sup>1</sup> |
+| ------------------ |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:| 
+| title              |       ✓       |       ✓       |       ✓       |       ✓       |       ✓       |
+| body               |       ✓       |       ✓       |       ✓       |       ✓       |       ✓       |
+| smallIcon          |       ✓       |       ✓       |       ✓       |       -       |       -       |
+| icon               |       ✓       |       ✓       |       ✓       |       ✓       | ✓<sup>2</sup> |
+| image              |       ✓       |       ✓       |       ✓       |       ✓       |       -       |
+| bahviour           |       ✓       |       ✓       |       ✓       |       ✓       |       ✓       |
+| behaviourIos       |       -       |       -       |       -       |       ✓       |       -       |
+| behaviourAndroid   |       -       |       ✓       |       -       |       -       |       -       |
+| behaviourHuawei    |       -       |       -       |       ✓       |       -       |       -       |
+| behaviourWebPush   |       ✓       |       -       |       -       |       -       |       -       |
+| badgeMobile        |       -       |       ✓       |       ✓       |       ✓       |       -       |
+| actions            |       ✓       |       ✓       |       ✓       | ✓<sup>3</sup> |       -       |
+| expiresAt          |       ✓       |       ✓       |       ✓       |       ✓       |       ✓       |
+| ttl                |       ✓       |       ✓       |       ✓       |       ✓       |       ✓       |
+
+1 - Non vapid safari notifications (before safari 16.4)
+2 - When is declared in PushPackage
+3 - action.title button label works only on "declared" values on app side / predefinied channels
+
+Now when you have context you can send notifications to your subscribers up to **1000** in one request
+```js
+
+const result = await dataContext.sendMessages([
+    bucket.createReceiver(
+        //TODO: Paste your subscription data here
+    ),
+    bucket.createReceiver(
+        //TODO: Paste your subscription data here
+    ),
+]);
+
+```
+
+#### Worker
+
+Worker must be initialized with `ServiceWorkerGlobalScope` which is `self` in Service Worker example initialization:
+
+sw.js file example code:
+```js
+import { Worker } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@latest/dist/browser/worker/index.js"
+
+new Worker(self, {
+    // Endpoint to our server default fallback to https://api-core.pushpushgo.com/v1 - optional value
+	endpoint: "", 
+    // When "subscription change was triggered" we will inform your endpoint (webhook) - can be same endpoint 
+	onSubscriptionChange: {
+        // Url to your endpoint that will receive this information
+        endpoint: "" 
+	    headers: {
+             // Custom headers
+            "Some": "Header",
+        }
+    } 
+})
+```
+
+On subscription change we will inform endpoint from onSubscriptionChange with POST method and Headers from headers field with payload:
+```json
+{
+	"type": "change"
+	"payload": {
+		"oldSubscription": {
+            "endpoint": "",
+            "expirationTime": 0,
+            "keys": {
+                "p256dh": "",
+                "auth": "",
+            }
+        },
+		"newSubscription": {
+            "endpoint": "",
+            "expirationTime": 0,
+            "keys": {
+                "p256dh": "",
+                "auth": "",
+            }
+        }
+	}    
+}
+```
+
 Full example how to subscribe for notifications in directory [browser jsdelivr example](/examples/browser/jsdelivr/)
 
 ### How to use with bundlers (tsc, webpack, parcel, etc)

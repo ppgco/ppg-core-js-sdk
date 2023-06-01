@@ -4,7 +4,7 @@
 
 Install deps
 ```bash
-$ yarn install
+$ yarn
 ```
 
 Modify example send_data_vapid.mjs with your credentials and your subscription
