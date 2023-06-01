@@ -88,12 +88,12 @@ import { Worker } from "https://cdn.jsdelivr.net/npm/@pushpushgo/core-sdk-js@lat
 
 new Worker(self, {
     // Endpoint to our server default fallback to https://api-core.pushpushgo.com/v1 - optional value
-	endpoint: "", 
+    endpoint: "", 
     // When "subscription change was triggered" we will inform your endpoint (webhook) - can be same endpoint 
-	onSubscriptionChange: {
+    onSubscriptionChange: {
         // Url to your endpoint that will receive this information
         endpoint: "" 
-	    headers: {
+        headers: {
              // Custom headers
             "Some": "Header",
         }
@@ -104,9 +104,9 @@ new Worker(self, {
 On subscription change we will inform endpoint from onSubscriptionChange with POST method and Headers from headers field with payload:
 ```json
 {
-	"type": "change"
-	"payload": {
-		"oldSubscription": {
+    "type": "change"
+    "payload": {
+        "oldSubscription": {
             "endpoint": "",
             "expirationTime": 0,
             "keys": {
@@ -114,7 +114,7 @@ On subscription change we will inform endpoint from onSubscriptionChange with PO
                 "auth": "",
             }
         },
-		"newSubscription": {
+        "newSubscription": {
             "endpoint": "",
             "expirationTime": 0,
             "keys": {
@@ -122,7 +122,7 @@ On subscription change we will inform endpoint from onSubscriptionChange with PO
                 "auth": "",
             }
         }
-	}    
+    }    
 }
 ```
 
@@ -222,7 +222,7 @@ const bucket = await client.createBucket({
     // Optional - This field declare a endpoint that will receive all events gathered from our SDK clients (ios, android, js, flutter) and send aggregated bulks every 1000k or 60 seconds.
     httpCallbackConfig: {
         url: "https://...",
-	    headers: {}
+        headers: {}
     },
 })
 ```
