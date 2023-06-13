@@ -1,6 +1,7 @@
 interface PpgCoreWorkerOptions {
     endpoint?: string;
     onSubscriptionChange: OnSubscriptionChangeConfig;
+    onExternalData?: (externalData: string) => void;
 }
 export interface PpgCoreNotificationEvent {
     type: "clicked" | "closed" | "delivered";

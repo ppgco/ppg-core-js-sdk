@@ -29,7 +29,7 @@ export interface WebPushContext extends ActionBehaviour, OurMobileExtensions {
     actions?: WebPushAction[];
     badge?: number;
     body?: string;
-    smallIcon?: string;
+    smallIcon: string;
     icon?: string;
     image?: string;
     title?: string;

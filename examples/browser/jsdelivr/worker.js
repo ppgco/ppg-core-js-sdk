@@ -8,5 +8,9 @@ new Worker(self, {
         headers: {
             from_worker: "true"
         }
+    },
+    onExternalData: (data) => {
+        console.log('--------------- EXTERNAL DATA -------------------');
+        console.log(data)
     }
 })
