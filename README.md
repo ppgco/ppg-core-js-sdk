@@ -403,11 +403,12 @@ Platform specific params for DataContext table
 | channelName        |       ✓       |       ✓       |       ✓       |       ✓       |       -       |
 
 <small>
-1 - Non vapid safari notifications (before safari 16.4)
-2 - When is declared in PushPackage
-3 - On webpush if browser supports clearAppBadge / setAppBadge
-4 - action.title button label works only on "declared" values on app side / predefinied channels
+1 - Non vapid safari notifications (before safari 16.4) <br/>
+2 - When is declared in PushPackage <br/>
+3 - On webpush if browser supports clearAppBadge / setAppBadge <br/>
+4 - action.title button label works only on "declared" values on app side / predefinied channels <br/>
 </small>
+
 
 Now when you have context you can send notifications to your subscribers up to **1000** in one request
 ```js
