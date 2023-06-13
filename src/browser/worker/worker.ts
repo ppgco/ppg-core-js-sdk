@@ -2,7 +2,8 @@ import {assertUnreachable} from "../../utils/assertUnreachable";
 
 interface PpgCoreWorkerOptions {
 	endpoint?: string;
-	onSubscriptionChange: OnSubscriptionChangeConfig
+	onSubscriptionChange: OnSubscriptionChangeConfig;
+	onExternalData?: (externalData: string) => void;
 }
 
 interface OnSubscriptionChangeEvent extends Event {
@@ -165,6 +166,16 @@ export class Worker {
 			if (typeof parsedData.data.badge === "number") {
 				console.warn('event.data.badge is not null, go to process badge if supported');
 				this.processBadge(parsedData.data.badge);
+			}
+
+			if (typeof parsedData.data.externalData === "string") {
+				try {
+					if (typeof this.options.onExternalData === "function") {
+						this.options.onExternalData(parsedData.data.externalData)
+					}
+				} catch(error) {
+					console.error(error);
+				}
 			}
 
 			event.waitUntil(

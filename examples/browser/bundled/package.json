@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@pushpushgo/core-sdk-js": "^0.0.5",
+    "@pushpushgo/core-sdk-js": "^0.0.6",
     "live-server": "^1.2.2",
     "parcel": "~2.8.3",
     "typescript": "^4.9.5"
