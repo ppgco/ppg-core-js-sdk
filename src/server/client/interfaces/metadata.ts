@@ -15,11 +15,17 @@ export interface RawContextMetadata {
 
 export interface SilentContextMetadata {
 	/**
+	 * In silent you can pass string data (eg. serialized json)
+	 */
+	externalData?: string;
+
+	/**
 	 * One of "expiresAt" or "ttl" is required.
 	 * If no one is given.
 	 * Tll is being set to 24h.
 	 * @see ttl
 	 */
+	
 	expiresAt?: string;
 	/**
 	 * One of "expiresAt" or "ttl" is required.

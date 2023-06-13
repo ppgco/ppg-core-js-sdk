@@ -337,8 +337,8 @@ Now in this bucket you can create "multiple contexts"
 ```js
 const dataContext = await bucket.createContext({
     title: "Hello world",
-    body: "This is my first message!"
-    
+    body: "This is my first message!",
+    subtitle: "My subtitle for ios or legacy safari"
     behaviour: "https://example.com",
     behaviourIos: "app://com.example.ios/deep/link", // optional if not pass get from "behaviour"
     behaviourAndroid: "app://com.example.android/deep/link", // optional if not pass get from "behaviour"
@@ -353,7 +353,7 @@ const dataContext = await bucket.createContext({
     ttl: "3600", // seconds
 
     badgeMobile: 1, // set badge number on app icon 
-
+    externalData: "{\"sample\": true}",
     actions: [
         { 
             behaviour: "https://example.com/action1",
@@ -389,14 +389,19 @@ Platform specific params table
 | behaviourAndroid   |       -       |       ✓       |       -       |       -       |       -       |
 | behaviourHuawei    |       -       |       -       |       ✓       |       -       |       -       |
 | behaviourWebPush   |       ✓       |       -       |       -       |       -       |       -       |
-| badgeMobile        |       -       |       ✓       |       ✓       |       ✓       |       -       |
-| actions            |       ✓       |       ✓       |       ✓       | ✓<sup>3</sup> |       -       |
+| badge              | ✓<sup>3</sup> |       ✓       |       ✓       |       ✓       |       -       |
+| actions            |       ✓       |       ✓       |       ✓       | ✓<sup>4</sup> |       -       |
+| subtitle           |       -       |       -       |       -       |       ✓       |       ✓       |
+| externalData       |       ✓       |       ✓       |       ✓       |       ✓       |       -       |
 | expiresAt          |       ✓       |       ✓       |       ✓       |       ✓       |       ✓       |
 | ttl                |       ✓       |       ✓       |       ✓       |       ✓       |       ✓       |
 
+<small>
 1 - Non vapid safari notifications (before safari 16.4)
 2 - When is declared in PushPackage
-3 - action.title button label works only on "declared" values on app side / predefinied channels
+3 - On webpush if browser supports clearAppBadge / setAppBadge
+4 - action.title button label works only on "declared" values on app side / predefinied channels
+</small>
 
 Now when you have context you can send notifications to your subscribers up to **1000** in one request
 ```js
@@ -410,6 +415,35 @@ const result = await dataContext.sendMessages([
     ),
 ]);
 
+```
+
+You can also send "transactional" message without creating context direcly on bucket:
+
+Data context:
+```js
+const result = await bucket.sendMessage(
+    bucket.createReceiver(
+        //TODO: Paste your subscription data here
+    ),
+    {
+        title: "...",
+        body: "...",
+        behaviour: "...",
+        // other params from context
+    }
+]);
+```
+
+Silent context:
+```js
+const result = await bucket.sendSilentMessage(
+    bucket.createReceiver(
+        //TODO: Paste your subscription data here
+    ),
+    {
+        externalData: "..."
+    }
+]);
 ```
 
 Full example how to send notifications in directory [server sender example](/examples/sender/)

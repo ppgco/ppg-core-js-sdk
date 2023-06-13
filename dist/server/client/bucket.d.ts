@@ -17,7 +17,9 @@ export declare class Bucket {
      * @returns Valid to API receiver format
      */
     createReceiver(subscription: Subscription): Receiver;
-    sendMessage(receiver: Receiver, contextMetadata: RawContextMetadata): Promise<MessageResultDto>;
+    sendRawMessage(receiver: Receiver, contextMetadata: RawContextMetadata): Promise<MessageResultDto>;
+    sendMessage(receiver: Receiver, contextMetadata: DataContextMetadata): Promise<MessageResultDto>;
+    sendSilentMessage(receiver: Receiver, contextMetadata: SilentContextMetadata): Promise<MessageResultDto>;
     createRawContext(context: RawContextMetadata): Promise<Context>;
     createSilentContext(context: SilentContextMetadata): Promise<Context>;
     createContext(context: DataContextMetadata): Promise<Context>;

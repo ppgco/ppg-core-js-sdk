@@ -56,6 +56,30 @@ export class Worker {
 		this.registerPushSubscriptionChangeEventHandler();
 	}
 	
+	private async clearBadge() {
+		if ('clearAppBadge' in self.navigator) {
+		  	try {
+				await (self.navigator as any).clearAppBadge();
+			} catch (error) {
+				console.error('Failed to clear app badge:', error);
+	    	}
+		}
+	}
+	
+	private async setBadge(count: number) {
+		if ('setAppBadge' in self.navigator) {
+			try {
+				await (self.navigator as any).setAppBadge(count);
+			} catch (error) {
+				console.error('Failed to set app badge:', error);
+			}
+		}
+	}
+
+	private async processBadge(count: number) {
+		return count === 0 ? this.clearBadge() : this.setBadge(count);
+	}
+
 	private async sendNotificationEvent(event: PpgCoreNotificationEvent) {
 		console.log("try to send notification with event: ", event);
 		await fetch(`${this.options.endpoint}/context/${event.payload.contextId}/events/${event.type}`, {
@@ -136,6 +160,11 @@ export class Worker {
 						}
 					})
 				]));
+			}
+
+			if (typeof parsedData.data.badge === "number") {
+				console.warn('event.data.badge is not null, go to process badge if supported');
+				this.processBadge(parsedData.data.badge);
 			}
 
 			event.waitUntil(

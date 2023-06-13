@@ -46,9 +46,23 @@ export class Bucket {
 	}
 
 
-	async sendMessage(receiver: Receiver, contextMetadata: RawContextMetadata): Promise<MessageResultDto> {
+	async sendRawMessage(receiver: Receiver, contextMetadata: RawContextMetadata): Promise<MessageResultDto> {
+		return await this._internalClient
+			.post(`/bucket/${this._bucketId}/send/raw`)
+			.body({ receiver, metadata: contextMetadata })
+			.execute<any>();
+	}
+
+	async sendMessage(receiver: Receiver, contextMetadata: DataContextMetadata): Promise<MessageResultDto> {
 		return await this._internalClient
 			.post(`/bucket/${this._bucketId}/send`)
+			.body({ receiver, metadata: contextMetadata })
+			.execute<any>();
+	}
+	
+	async sendSilentMessage(receiver: Receiver, contextMetadata: SilentContextMetadata): Promise<MessageResultDto> {
+		return await this._internalClient
+			.post(`/bucket/${this._bucketId}/send/silent`)
 			.body({ receiver, metadata: contextMetadata })
 			.execute<any>();
 	}

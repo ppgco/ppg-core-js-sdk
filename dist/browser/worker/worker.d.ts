@@ -26,6 +26,9 @@ export declare class Worker {
     private readonly workerScope;
     private readonly options;
     constructor(workerScope: ServiceWorkerGlobalScope, options: PpgCoreWorkerOptions);
+    private clearBadge;
+    private setBadge;
+    private processBadge;
     private sendNotificationEvent;
     private registerPushSubscriptionChangeEventHandler;
     private registerSyncEventHandler;

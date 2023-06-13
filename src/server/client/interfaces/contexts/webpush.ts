@@ -19,41 +19,26 @@ export interface OurMobileExtensions {
 	 * ApnsSafari
 	 */
 	subtitle?: string;
-	defaultActionLabel?: string;
-	
-	/**
-	 * Mobile platforms non-standard / standard
-	 */
-	sound?: string;
-	soundAndroid?: string;
-	soundIos?: string;
-	
+
 	/**
 	 * Mobile platforms
 	 */
-	badgeMobile?: number;
+	badge?: number;
 }
 
 export interface WebPushAction extends ActionBehaviour {
 	action: string;
 	title: string;
-	icon: Url;
-	actionUrl: Url;
+	icon?: Url;
 }
 
 export interface WebPushContext extends ActionBehaviour, OurMobileExtensions {
-	defaultAction?: Url;
 	actions?: WebPushAction[];
-	badge?: Url;
+	badge?: number;
 	body?: string;
-	dir?: Direction;
-	lang?: string;
-	tag?: string;
+	smallIcon: string;
 	icon?: string;
 	image?: string;
-	renotify?: boolean;
-	requireInteraction?: boolean;
-	silent?: boolean;
 	title?: string;
-	vibrate?: number[];
+	externalData?: string;
 }
