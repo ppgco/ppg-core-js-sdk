@@ -377,7 +377,7 @@ const silentContext = await bucket.createSilentContext({
 
 ```
 
-Platform specific params table
+Platform specific params for DataContext table
 | Parameter          | WebPush(VAPID)| Android(FCM)  | Huawei(HMS)   | iOS (APNS)    | Safari (APNS)<sup>1</sup> |
 | ------------------ |:-------------:|:-------------:|:-------------:|:-------------:|:-------------:| 
 | title              |       ✓       |       ✓       |       ✓       |       ✓       |       ✓       |
@@ -391,7 +391,11 @@ Platform specific params table
 | behaviourHuawei    |       -       |       -       |       ✓       |       -       |       -       |
 | behaviourWebPush   |       ✓       |       -       |       -       |       -       |       -       |
 | badge              | ✓<sup>3</sup> |       ✓       |       ✓       |       ✓       |       -       |
-| actions            |       ✓       |       ✓       |       ✓       | ✓<sup>4</sup> |       -       |
+| actions            |       ✓       |       ✓       |       ✓       |       ✓       |       -       |
+| actions.title      |       ✓       |       -       |       -       | ✓<sup>4</sup> |       -       |
+| actions.icon       |       -       |       -       |       -       |       -       |       -       |
+| actions.action     |       ✓       |       ✓       |       ✓       |       ✓       |       -       |
+| actions.behaviour  |       ✓       |       ✓       |       ✓       |       ✓       |       -       |
 | subtitle           |       -       |       -       |       -       |       ✓       |       ✓       |
 | externalData       |       ✓       |       ✓       |       ✓       |       ✓       |       -       |
 | expiresAt          |       ✓       |       ✓       |       ✓       |       ✓       |       ✓       |
