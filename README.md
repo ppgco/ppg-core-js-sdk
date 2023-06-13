@@ -336,6 +336,7 @@ Now in this bucket you can create "multiple contexts"
 
 ```js
 const dataContext = await bucket.createContext({
+    channelName: "default",
     title: "Hello world",
     body: "This is my first message!",
     subtitle: "My subtitle for ios or legacy safari"
@@ -395,6 +396,7 @@ Platform specific params table
 | externalData       |       ✓       |       ✓       |       ✓       |       ✓       |       -       |
 | expiresAt          |       ✓       |       ✓       |       ✓       |       ✓       |       ✓       |
 | ttl                |       ✓       |       ✓       |       ✓       |       ✓       |       ✓       |
+| channelName        |       ✓       |       ✓       |       ✓       |       ✓       |       -       |
 
 <small>
 1 - Non vapid safari notifications (before safari 16.4)
