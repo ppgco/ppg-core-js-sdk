@@ -2,9 +2,8 @@ import { PpgCoreClient } from "@pushpushgo/core-sdk-js/server/client";
 
 async function run() {
   const client = new PpgCoreClient({
-    // TODO: Remove endpoint from example - this is "preview deployment" not for production usage.
-    endpoint: "https://ppg-core.master1.qappg.co/v1",
-    apiKey: "00147c96-f0e8-4b40-b57d-992fd6c9a5ce"
+    endpoint: "https://api-core.pushpushgo.com/v1",
+    apiKey: "00147c96-f0e8-4b40-b57d-992fd6c9a5ce" // For test you can use this api token - its preview one with low rate/limits. To get own please visit our discord.
   });
 
   const providersCredentials = [
