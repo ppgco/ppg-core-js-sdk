@@ -403,10 +403,10 @@ Platform specific params for DataContext table
 | channelName        |       ✓       |       ✓       |       ✓       |       ✓       |       -       |
 
 <small>
-1 - Non vapid safari notifications (before safari 16.4) <br/>
-2 - When is declared in PushPackage <br/>
-3 - On webpush if browser supports clearAppBadge / setAppBadge <br/>
-4 - action.title button label works only on "declared" values on app side / predefinied channels <br/>
+<sup>1</sup> - Non vapid safari notifications (before safari 16.4) <br/>
+<sup>2</sup> - When is declared in PushPackage <br/>
+<sup>3</sup> - On webpush if browser supports clearAppBadge / setAppBadge <br/>
+<sup>4</sup> - action.title button label works only on "declared" values on app side / predefinied channels <br/>
 </small>
 
 
@@ -462,6 +462,25 @@ If you have any issues please give us feedback in Issues section.
 
 Full example how to subscribe for notifications in directory [browser bundle example](/examples/browser/bundled/)
 
+### Webhooks
+
+All platform will generate events for webhooks:
+
+| Type    | Event      | Foreground | Background |
+|---------|------------|------------|------------|
+| Data    |            |            |            |
+|         | delivered  | ✓          | ✓          |
+|         | clicked    | ✓          | ✓          |
+|         | sent       | ✓          | ✓          |
+|         | close      | ✓          | ✓          |
+| Silent<sup>1</sup>  |            |            |            |
+|         | delivered  | ✓          | ✓          |
+|         | sent       | ✓          | ✓          |
+
+<small><sup>1</sup> - webpush doesn't support silent messages due to Push API implementation</small>
+
+If `foreignId` field was passed with `receiver` then it will also included in event in message.
+
 ### How to generate vapid keys to configure Client SDK?
 ```bash
 $ yarn global add web-push
@@ -479,4 +498,4 @@ In SDK provide only publicKey, privateKey is for sender.
 
 # Support & production run
 All API keys available in this documentation allows you to test service with very low rate-limits.
-If you need production credentials or just help with integration please visit us in [discord](https://discord.gg/NVpUWvreZa) or just mail to [support@pushpushgo.com](mailto:support@pushpushgo.com)
+If you need production credentials or just help with integration please visit us in [discord](https://discord.gg/NVpUWvreZa) or just mail to [support@pushpushgo.com](mailto:support+core@pushpushgo.com)
