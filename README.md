@@ -455,14 +455,9 @@ const result = await bucket.sendSilentMessage(
 
 Full example how to send notifications in directory [server sender example](/examples/sender/)
 
-### How to use with bundlers (tsc, webpack, parcel, etc)
-
-This package should compile well with all bundlers.
-If you have any issues please give us feedback in Issues section.
-
-Full example how to subscribe for notifications in directory [browser bundle example](/examples/browser/bundled/)
 
 ### Webhooks
+During the journey of push we will trigger webhook events.
 
 All platform will generate events for webhooks:
 
@@ -480,6 +475,14 @@ All platform will generate events for webhooks:
 <small><sup>1</sup> - webpush doesn't support silent messages due to Push API implementation</small>
 
 If `foreignId` field was passed with `receiver` then it will also included in event in message.
+
+
+### How to use with bundlers (tsc, webpack, parcel, etc)
+
+This package should compile well with all bundlers.
+If you have any issues please give us feedback in Issues section.
+
+Full example how to subscribe for notifications in directory [browser bundle example](/examples/browser/bundled/)
 
 ### How to generate vapid keys to configure Client SDK?
 ```bash
