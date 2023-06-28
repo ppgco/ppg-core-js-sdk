@@ -1,71 +1,93 @@
-# PushPushGo Core SDK for JavaScript / TypeScript
-
-WIP - do not use 
+# **CORE** _by PushPushGo_ SDK for JavaScript / TypeScript
 
 [![npmjs version](https://img.shields.io/npm/v/@pushpushgo/core-sdk-js?style=flat-square)](https://www.npmjs.com/package/@pushpushgo/core-sdk-js)
 ![GitHub Workflow Status (main)](https://img.shields.io/github/actions/workflow/status/ppgco/ppg-core-js-sdk/publish.yml?style=flat-square)
 ![GitHub tag (latest)](https://img.shields.io/github/v/tag/ppgco/ppg-core-js-sdk?style=flat-square)
 [![Discord](https://img.shields.io/discord/1108358192339095662?color=%237289DA&label=Discord&style=flat-square)](https://discord.gg/NVpUWvreZa)
 
-This is a library for PushPushGo Core - can be used for both Browser / Client side.
-
 ## Product Info
 
-PushPushGo Core* is a building block for push notifications:
+**CORE** _by PushPushGo_ is a building blocks for push notifications:
  - sender for push notifications - we handle batch requests, aggregate feedback events and inform your webhook
  - images storage & traffic - we handle, crop and serve your push images
- - fast implementation - we cover Android, iOS, Web with push notifications support
- - you own your database and credentials - no vendor lock-in - we provide infrastructure, sdk & support
- - simple API - we provide one API for all providers
+ - fast implementation - we cover all platforms with push notifications support
+ - **you own your database and credentials** - no vendor lock - we provide infrastructure, sdk & support
+ - simple API - we provide one unified API for all providers
 
-Contact: support+core@pushpushgo.com or [Discord](https://discord.gg/NVpUWvreZa)
+## Client side SDK - supported platforms / providers
 
-<sub>PushPushGo Core is not the same as PushPushGo product - if you are looking for [PushPushGo - Push Notifications Management Platform](https://pushpushgo.com)</sub>
+| Platform | Provider | SDK        |
+|----------|----------|------------|
+| Android / Huawei  | FCM / HMS      | [CORE Android SDK](https://github.com/ppgco/ppg-core-android-sdk) |
+| iOS | APNS      | [CORE iOS SDK](https://github.com/ppgco/ppg-core-ios-sdk) |
+| Flutter | FCM / HMS / APNS      | [CORE Flutter SDK](https://github.com/ppgco/ppg-core-flutter-sdk) |
+| Web | Vapid (WebPush)     | [CORE JS SDK](https://github.com/ppgco/ppg-core-js-sdk) |
+
+## Server side SDK (sending notifications)
+| Platform | SDK      |
+|----------|----------|
+| JavaScript / TypeScript  | [CORE JS SDK](https://github.com/ppgco/ppg-core-js-sdk) | 
+| .NET  | [WIP - ask](https://discord.gg/NVpUWvreZa) | 
+| Java  | [WIP - ask](https://discord.gg/NVpUWvreZa) | 
+
+Join our [Discord](https://discord.gg/NVpUWvreZa) to get support, your api key, talk or just keep an eye on it.
+
+<sub>**CORE** _by PushPushGo_ is not the same as **PushPushGo** product - if you are looking for [PushPushGo - Push Notifications Management Platform](https://pushpushgo.com)</sub>
 
 ## How it works
 
-IMAGE HERE
-
 When you send request to our API to send message, we prepare images and then connect to different providers. 
 
-When message is delieverd to the device and interacts with user, we collect events and pass them to our API.
+### Architecture
 
-After a short time you will recieve package with events on your webhook:
+![image](https://i.ibb.co/tst39rS/architecture.png "Architecture")
 
-```js
+When message is delivered to the device and interacts with user, we collect events and pass them to our API, collect and resend to your webhook endpoint.
+
+#### Webhooks events
+During the journey of push we will trigger webhook events.
+
+| Push Type    | Event      | Foreground | Background |
+|---------|------------|------------|------------|
+| Data    |            |            |            |
+|         | delivered  | ✓          | ✓          |
+|         | clicked    | ✓          | ✓          |
+|         | sent       | ✓          | ✓          |
+|         | close      | ✓          | ✓          |
+| Silent<sup>1</sup>  |            |            |            |
+|         | delivered  | ✓          | ✓          |
+|         | sent       | ✓          | ✓          |
+
+<small><sup>1</sup> - webpush doesn't support silent messages due to Push API implementation</small>
+
+If `foreignId` field was passed with `receiver` then it will also included in event in message.
+
+Example events package:
+
+```json
 {
     "messages": [
         {
             "messageId": "8e3075f1-6b21-425a-bb4f-eeaf0eac93a2",
             "foreignId": "my_id",
             "result": {
-                "kind": "sent"
-            },
-            "ts": 1685009020243
-        },
-        {
-            "messageId": "8e3075f1-6b21-425a-bb4f-eeaf0eac93a2",
-            "foreignId": "my_id",
-            "result": {
                 "kind": "delivered"
             },
-            "ts": 1685009020564
+            "ts": 1685009020243
         }
     ]
 }
 ```
 
-Using that data you can calculate statistics or do some of your business logic.
+# SDK Integration instructions
 
-# SDK
-
-To use this SDK you need to have account in PushPushGo Core! and token to authorize your requests.
+To use this SDK you need to have account in **CORE** by _PushPushGo_! and token to authorize your requests.
 
 This package contains two modules "client" and "server".
 
 ClientSDK is for requesting push notifications.
 
-ServerSDK is for sending push notifications via PushPushGo Core API [Swagger](https://linkto.swagger.pushushgo.com)
+ServerSDK is for sending push notifications via **CORE** by _PushPushGo_ API [Swagger](https://linkto.swagger.pushushgo.com)
 
 [Autogenerated Docs](https://ppgco.github.io/ppg-core-js-sdk/)
 
@@ -454,27 +476,6 @@ const result = await bucket.sendSilentMessage(
 ```
 
 Full example how to send notifications in directory [server sender example](/examples/sender/)
-
-
-### Webhooks
-During the journey of push we will trigger webhook events.
-
-All platform will generate events for webhooks:
-
-| Type    | Event      | Foreground | Background |
-|---------|------------|------------|------------|
-| Data    |            |            |            |
-|         | delivered  | ✓          | ✓          |
-|         | clicked    | ✓          | ✓          |
-|         | sent       | ✓          | ✓          |
-|         | close      | ✓          | ✓          |
-| Silent<sup>1</sup>  |            |            |            |
-|         | delivered  | ✓          | ✓          |
-|         | sent       | ✓          | ✓          |
-
-<small><sup>1</sup> - webpush doesn't support silent messages due to Push API implementation</small>
-
-If `foreignId` field was passed with `receiver` then it will also included in event in message.
 
 
 ### How to use with bundlers (tsc, webpack, parcel, etc)
