@@ -82,7 +82,7 @@ export class Worker {
 	}
 
 	private async sendNotificationEvent(event: PpgCoreNotificationEvent) {
-		console.log("try to send notification with event: ", event);
+		console.log("send notification with event: ", event);
 		await fetch(`${this.options.endpoint}/context/${event.payload.contextId}/events/${event.type}`, {
 			method: "post",
 			headers: {
