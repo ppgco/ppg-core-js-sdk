@@ -1,6 +1,6 @@
 import {RequestHeaders} from "./interfaces/common";
 import {RequestBuilder} from "./request-builder";
-import path from "path";
+import path from "node:path";
 
 export class InternalClient {
 	private readonly _defaultHeaders: RequestHeaders = {
